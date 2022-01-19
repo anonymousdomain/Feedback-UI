@@ -1,12 +1,15 @@
 import React from "react";
-import {FaTimes} from 'react-icons/fa'
-const FeedbackItem = ({ item }) => {
+import { FaTimes } from "react-icons/fa";
+import Card from "./Shared/Card";
+const FeedbackItem = ({ item, handleDelete }) => {
   return (
-    <div className="card">
+    <Card>
       <div className="num-display">{item.rating}</div>
-      <button className="close"><FaTimes color="purple"/></button>
+      <button className="close" onClick={() => handleDelete(item.id)}>
+        <FaTimes color="purple" />
+      </button>
       <div className="text-display">{item.text}</div>
-    </div>
+    </Card>
   );
 };
 
