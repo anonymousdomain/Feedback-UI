@@ -7,6 +7,7 @@ import FeedbackStats from "./components/FeedbackStats";
 import Header from "./components/Header";
 import FeedbackData from "./data/FeedbackData";
 import AboutPage from "./pages/AboutPage";
+import { FeedbackProvider } from "./context/FeedbackContext";
 import AboutIconLink from "./components/AboutIconLink";
 const App = () => {
   const [feedback, setFeedback] = useState(FeedbackData);
@@ -18,7 +19,8 @@ const App = () => {
     setFeedback(feedback.filter((item) => item.id !== id));
   };
   return (
-    <Router>
+   <FeedbackProvider>
+      <Router>
       <Header />
 
       <div className="container">
@@ -39,6 +41,7 @@ const App = () => {
         <AboutIconLink/>
       </div>
     </Router>
+   </FeedbackProvider>
   );
 };
 
