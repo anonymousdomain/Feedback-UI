@@ -8,31 +8,15 @@ import AboutPage from "./pages/AboutPage";
 import { FeedbackProvider } from "./context/FeedbackContext";
 import AboutIconLink from "./components/AboutIconLink";
 const App = () => {
-
   return (
-   <FeedbackProvider>
-      <Router>
+    <FeedbackProvider>
       <Header />
-
       <div className="container">
-        <Routes>
-          <Route 
-            exact
-            path="/"
-            element={
-              <>
-                <FeedbackForm  />
-                <FeedbackStats />
-                <FeedbackList/>
-              </>
-            }
-          ></Route>
-          <Route path="/about" element={<AboutPage />} />
-        </Routes>
-        <AboutIconLink/>
+        <FeedbackForm />
+        <FeedbackStats />
+        <FeedbackList />
       </div>
-    </Router>
-   </FeedbackProvider>
+    </FeedbackProvider>
   );
 };
 
