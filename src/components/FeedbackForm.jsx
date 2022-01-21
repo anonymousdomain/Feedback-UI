@@ -26,6 +26,7 @@ const FeedbackForm = () => {
       setMessage(null);
     } else if (text !== "" && text.trim().length <= 10) {
       setMessage("Text must be atleast 10 Characters");
+      setbtnDisabled(true)
     } else {
       setMessage(null);
       setbtnDisabled(false);
@@ -62,7 +63,7 @@ const FeedbackForm = () => {
             value={text}
             placeholder="Write a review"
           />
-          <Button type="submit" disabled={btnDisabled}>
+          <Button type="submit" isDisabled={btnDisabled}>
             submit
           </Button>
         </div>
