@@ -1,25 +1,42 @@
-import { createContext, useState,useEffect } from "react";
-import { v4 as uuidv4 } from "uuid";
+import { createContext, useState, useEffect } from "react";
 const FeedbackContext = createContext();
 export const FeedbackProvider = ({ children }) => {
+  const [isLoading, setIsLoading]=useState(true)
   const [feedback, setFeedback] = useState([]);
   const [feedbackEdit, setEditFeedback] = useState({
     item: {},
     edit: false,
   });
 
-  useEffect(()=>{
+  useEffect(() => {
+    fetchFeedback();
+  }, []);
 
-  },[])
-  
-  //add feedback
-  const addFeedback = (newFeedback) => {
-    newFeedback.id = uuidv4();
-    setFeedback([newFeedback, ...feedback]);
+  //fetch feedback
+  const fetchFeedback = async () => {
+    const response = await fetch(
+      `/feedback?_sorted=id&_order=desc`
+    );
+    const data = await response.json();
+    setFeedback(data)
+    setIsLoading(false)
+  };
+  //add feedback 
+  const addFeedback =async (newFeedback) => {
+    const res=await fetch(`/feedback`,{
+      method:'POST',
+      headers:{
+        'content-Type':'application/json',
+      },
+      body:JSON.stringify(newFeedback)
+    })
+    const data=res.json();
+    setFeedback([data, ...feedback]);
   };
 
   //delete feedback
-  const handleDelete = (id) => {
+  const handleDelete =async (id) => {
+    await fetch(`/feedback/${id}`,{method:'DELETE'})
     setFeedback(feedback.filter((item) => item.id !== id));
   };
 
@@ -32,18 +49,31 @@ export const FeedbackProvider = ({ children }) => {
   };
 
   //update feedaack item
-  const updateFeedbackItem = (id, updItem) => {
-setFeedback(feedback.map((item)=>item.id===id?{...item,...updItem}:item))
+  const updateFeedbackItem = async(id, updItem) => {
+
+    // await fetch(`/feedback/${id}`,{method:'PATCH'})
+    const res=await fetch(`/feedback/${id}`,{
+      method:'Put',
+      headers:{
+        'Content-Type':'application/json'
+      },
+      body:JSON.stringify(updItem)
+    })
+    const data=res.json();
+    setFeedback(
+      feedback.map((item) => (item.id === id ? { ...item, ...data } : item))
+    );
   };
   return (
     <FeedbackContext.Provider
       value={{
         feedback,
         feedbackEdit,
+        isLoading,
         handleDelete,
         addFeedback,
         editFeedback,
-       updateFeedbackItem
+        updateFeedbackItem,
       }}
     >
       {children}
