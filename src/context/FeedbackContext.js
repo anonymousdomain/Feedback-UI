@@ -51,9 +51,17 @@ export const FeedbackProvider = ({ children }) => {
   //update feedaack item
   const updateFeedbackItem = async(id, updItem) => {
 
-    await fetch(`/feedback/${id}`,{method:'PATCH'})
+    // await fetch(`/feedback/${id}`,{method:'PATCH'})
+    const res=await fetch(`/feedback/${id}`,{
+      method:'Put',
+      headers:{
+        'Content-Type':'application/json'
+      },
+      body:JSON.stringify(updItem)
+    })
+    const data=res.json();
     setFeedback(
-      feedback.map((item) => (item.id === id ? { ...item, ...updItem } : item))
+      feedback.map((item) => (item.id === id ? { ...item, ...data } : item))
     );
   };
   return (
