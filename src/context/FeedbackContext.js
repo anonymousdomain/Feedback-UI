@@ -1,5 +1,4 @@
 import { createContext, useState, useEffect } from "react";
-import { v4 as uuidv4 } from "uuid";
 const FeedbackContext = createContext();
 export const FeedbackProvider = ({ children }) => {
   const [isLoading, setIsLoading]=useState(true)
@@ -36,7 +35,8 @@ export const FeedbackProvider = ({ children }) => {
   };
 
   //delete feedback
-  const handleDelete = (id) => {
+  const handleDelete =async (id) => {
+    await fetch(`/feedback/${id}`,{method:'DELETE'})
     setFeedback(feedback.filter((item) => item.id !== id));
   };
 
@@ -49,7 +49,9 @@ export const FeedbackProvider = ({ children }) => {
   };
 
   //update feedaack item
-  const updateFeedbackItem = (id, updItem) => {
+  const updateFeedbackItem = async(id, updItem) => {
+
+    await fetch(`/feedback/${id}`,{method:'PATCH'})
     setFeedback(
       feedback.map((item) => (item.id === id ? { ...item, ...updItem } : item))
     );
