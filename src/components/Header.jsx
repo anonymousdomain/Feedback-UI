@@ -1,19 +1,20 @@
-const Header = ({ bgColor, textColor, text }) => {
-  const headerStyles = {
+import React from "react";
+
+const Header = ({ text, bgColor, textColor }) => {
+  const headerStyle = {
     backgroundColor: bgColor,
     color: textColor,
   };
-  return (
-    <header style={headerStyles} className="header">
-      <div className="container">
+  return <header style={headerStyle}>
+    <div className="container">
         <h2>{text}</h2>
-      </div>
-    </header>
-  );
+    </div>
+  </header>;
 };
+
 Header.defaultProps = {
-  text: "Feedback UI",
+  text: "FeedBack UI",
   bgColor: "rgba(0,0,0,0.4)",
-  textColor: "#ff6a95",
+  textColor: "#aabcd",
 };
 export default Header;
