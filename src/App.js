@@ -1,20 +1,21 @@
-import React from "react";
+
 import FeedbackForm from "./components/FeedbackForm";
 import FeedbackList from "./components/FeedbackList";
-import FeedbackStats from "./components/FeedbackStats";
+import FeedBackStat from "./components/FeedBackStat";
 import Header from "./components/Header";
+
 import { FeedbackProvider } from "./context/FeedbackContext";
-const App = () => {
+function App() {
   return (
     <FeedbackProvider>
       <Header />
       <div className="container">
         <FeedbackForm />
-        <FeedbackStats />
+        <FeedBackStat />
         <FeedbackList />
       </div>
     </FeedbackProvider>
   );
-};
+}
 
 export default App;
