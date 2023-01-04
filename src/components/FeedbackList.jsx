@@ -4,9 +4,10 @@ import FeedbackContext from "../context/FeedbackContext";
 import FeedbackItem from "./FeedbackItem";
 
 function FeedbackList({ handleDelete }) {
-  const { feedback } = useContext(FeedbackContext);
+  const { feedback,isLoading } = useContext(FeedbackContext);
 
-  return (
+ 
+  return  isLoading?<h3>Loading...</h3>:(
     <div className="feedback-list">
       <AnimatePresence>
         {feedback.map((item) => (
